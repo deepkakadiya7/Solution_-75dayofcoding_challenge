@@ -1,35 +1,31 @@
+
 class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
+public:
+vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        if (root == NULL)
+         return  ans;
 
-        if (root == null) {
-            return new ArrayList<>(); 
-        }
+        queue<TreeNode*> q;
+        q.push(root);
 
-        Queue<TreeNode> queue = new ArrayDeque<TreeNode>();
-        List<List<Integer>> traversal = new ArrayList<>();
+        while (!q.empty()) {
+            int k = q.size();
+            vector<int> level;
 
-        queue.add(root); 
+            for (int i = 0; i < k; ++i) {
+                TreeNode* node = q.front();
+                q.pop();
+                level.push_back(node->val);
 
-        while (!queue.isEmpty()) {
-            List<Integer> currLevel = new ArrayList<>();
-            int currSize = queue.size();  
-
-      
-            for (int i = 0; i < currSize; i++) {
-                TreeNode currNode = queue.poll(); 
-
-                currLevel.add(currNode.val);
-
-                if (currNode.left != null) {
-                    queue.add(currNode.left);
-                }
-                if (currNode.right != null) {
-                    queue.add(currNode.right);
-                }
+                if (node->left != NULL)
+                 q.push(node->left);
+                if (node->right != NULL) 
+                q.push(node->right);
             }
-            traversal.add(currLevel);
+            ans.push_back(level);
         }
 
-        return traversal;
-    }
+        return ans;
 }
+};
